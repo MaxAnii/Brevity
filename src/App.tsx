@@ -1,41 +1,20 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import { getSelectedText } from "./utils/getSelectedTextScript";
+import { getSummerizedText } from "./utils/getSummerizedText";
 
 function App() {
 	const [text, setText] = useState("");
-	const getSelectedText = async () => {
-		try {
-			let [tab] = await chrome.tabs.query({
-				active: true,
-				currentWindow: true,
-			});
-			if (!tab?.id) {
-				console.error("No active tab found or invalid tab ID.");
-				return;
-			}
-			await chrome.scripting.executeScript({
-				target: { tabId: tab.id },
-				func: () => {
-					let selectedText =
-						window.getSelection()?.toString().trim() || "No text selected";
-					chrome.runtime.sendMessage({ selectedText });
-				},
-			});
-		} catch (error) {
-			console.error("Failed to execute script:", error);
-		}
-	};
+
 	useEffect(() => {
 		getSelectedText();
-		const handleMessage = (message: { selectedText: string }) => {
-			if (message.selectedText) {
+		chrome.runtime.onMessage.addListener(
+			async (message: { selectedText: string }) => {
 				setText(message.selectedText);
+				const data = await getSummerizedText(message);
+				setText(data);
 			}
-		};
-		chrome.runtime.onMessage.addListener(handleMessage);
-		return () => {
-			chrome.runtime.onMessage.removeListener(handleMessage);
-		};
+		);
 	}, []);
 	return (
 		<div className="App">
