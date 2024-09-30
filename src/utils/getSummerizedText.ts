@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
+const SUMMERIZE_TOKEN = import.meta.env.VITE_SUMMERIZE_TOKEN;
 export const getSummerizedText = async (message: { selectedText: string }) => {
 	if (message.selectedText) {
 		const data = await fetch(
@@ -7,7 +6,7 @@ export const getSummerizedText = async (message: { selectedText: string }) => {
 			{
 				method: "POST",
 				headers: {
-					Authorization: process.env.SUMMERIZE_TOKEN,
+					Authorization: SUMMERIZE_TOKEN,
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ inputs: message.selectedText }),
