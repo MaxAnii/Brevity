@@ -1,8 +1,7 @@
-/// <reference types="vite/client" />
-declare global {
-	namespace NodeJS {
-		interface ProcessEnv {
-			SUMMERIZE_TOKEN: string;
-		}
-	}
+interface ImportMetaEnv {
+	readonly VITE_SUMMERIZE_TOKEN: string;
+}
+
+interface ImportMeta {
+	readonly env: ImportMetaEnv;
 }
