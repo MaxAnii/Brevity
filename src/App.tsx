@@ -2,24 +2,39 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { getSelectedText } from "./utils/getSelectedTextScript";
 import { getSummerizedText } from "./utils/getSummerizedText";
+import Footer from "./components/Footer";
+import Heading from "./components/Heading";
+import Loader from "./components/Loader";
 
 function App() {
-	const [text, setText] = useState("");
-
+	const [text, setText] = useState("No selected text.");
+	const [showLoader, setShowLoader] = useState(true);
 	useEffect(() => {
 		getSelectedText();
 		chrome.runtime.onMessage.addListener(
 			async (message: { selectedText: string }) => {
-				setText(message.selectedText);
-				const data = await getSummerizedText(message);
-				setText(data);
+				if (message.selectedText) {
+					const data = await getSummerizedText(message);
+					setText(data);
+				}
+				setShowLoader(false);
 			}
 		);
 	}, []);
 	return (
-		<div className="App">
-			<p>{text}</p>
-		</div>
+		<>
+			<Heading></Heading>
+			<div className="App">
+				{!showLoader ? (
+					<p>{text}</p>
+				) : (
+					<div className="loader">
+						<Loader></Loader>
+					</div>
+				)}
+			</div>
+			<Footer></Footer>
+		</>
 	);
 }
 
