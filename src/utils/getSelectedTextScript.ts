@@ -20,9 +20,8 @@ export const getSelectedText = async () => {
 				const selectedText = window.getSelection()?.toString().trim() || "";
 
 				// Send the selected text back to the extension runtime
-				if (selectedText) {
-					chrome.runtime.sendMessage({ selectedText });
-				}
+
+				chrome.runtime.sendMessage({ selectedText });
 			},
 		});
 		console.log("Ress");
