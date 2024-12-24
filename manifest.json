@@ -1,8 +1,11 @@
 {
 	"manifest_version": 3,
-	"name": "CRXJS React Vite Example",
+	"name": "Brevity",
 	"version": "1.0.0",
 	"action": { "default_popup": "index.html" },
+	"icons": {
+		"788": "Assets/icon.jpg"
+	},
 	"permissions": ["scripting", "tabs"],
 	"host_permissions": ["https://*/*", "http://*/*"]
 }
