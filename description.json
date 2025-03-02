@@ -1,0 +1,7 @@
+{
+	"title": "Brevity (Web Extension)",
+	"description": "This browser extension allows users to quickly summarise selected text on web pages, making it easier to grasp key points without reading everything. Built with CRXJS, it seamlessly integrates into the browser for a simple and hassle-free experience. The extension generates clear and accurate summaries using Hugging Face's powerful AI model (facebook/bart-large-cnn).",
+	"banner": "https://projectbanners.s3.eu-north-1.amazonaws.com/Screenshot+2025-03-01+121456.png",
+	"github": "https://github.com/MaxAnii/Brevity",
+	"techStack": "TypeScript, CRXJS, Chrome API, Hugging Face's model."
+}
